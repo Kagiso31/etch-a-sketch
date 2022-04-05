@@ -1,11 +1,11 @@
 let currentGridSize = 0;
 const body = document.querySelector('body');
 
+// Grid
 const container = document.createElement('div');
 container.className = "container";
 body.appendChild(container);
 
-// Grid
 function createGrid(gridSize) {
     for (let i = 0; i < gridSize; i++) {
         for (let j = 0; j < gridSize; j++) {
@@ -29,3 +29,23 @@ function clearGrid() {
 window.onload = () => {
     createGrid(16);
 }
+
+// Reset Button
+const resetButton = document.createElement('button');
+resetButton.className = "reset";
+resetButton.textContent = "Reset";
+body.appendChild(resetButton);
+
+resetButton.addEventListener('click', () => {
+    let gridSize;
+    do {
+        gridSize = prompt('How many squares do you want per side?', '');
+        if (gridSize === null) {
+            gridSize = currentGridSize;
+            break;
+        } 
+    } while (!Number.isInteger(+gridSize) ||
+         gridSize > 100 || gridSize <= 0)
+    clearGrid();
+    createGrid(gridSize);
+});
